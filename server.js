@@ -2,21 +2,22 @@
 
 
 
-const express = require ('express')  ////  as import library 
+const express = require ('express')  ////  as imPORT library 
 const cors = require('cors')         ////
-
-
 require('dotenv').config();
 
 
-const server = express()
-
-const port  = 7000 
 
 const  wheatherData = require ('./Data.json')
 
 
-server.listen(port,()=>{              /////// preaper server listen request//////
+const server = express()
+
+const PORT = process.env.PORT
+
+
+
+server.listen(PORT,()=>{              /////// preaper server listen request//////
     console.log(' Iam listening ');  ///// show in terminal cuz its node server //// 
 
 
@@ -32,7 +33,7 @@ server.get('/test',(req,res)=>{
 
 class weather{
     constructor(item){
-        this.date=item.valid_date;
+        this.date=item.valid_date;                    ///
         this.description = item.weather.description; //// in jason  
     }
 }
@@ -40,14 +41,13 @@ class weather{
 
 
 
-//localHost:7000/wheather?cityName=Amman  
-
+//localHost:7000/wheather?cityName=Amman   ///city Name its a quary and any thing after ? 
 
 server.get('/wheather',(req,res) =>{
-            let searchQury = req.query.cityName /// to make request diynamk ... to acces after ? 
+            let searchQuery = req.query.cityName /// to make request diynamk ... to acces after ? 
 
         let cityData = wheatherData.find( city =>{
-            if ( city.city_name === searchQury ) { /////// 
+            if ( city.city_name === searchQuery ) { ///////searchQuery
                
                 return city;
             }
@@ -67,7 +67,10 @@ server.get('/wheather',(req,res) =>{
 })
 
 
-
+///localhost:7000/hhhhhhh OrAny mistake 
+server.get('*',(req,res)=>{
+    res.status(404).send('Eroor page Not found ')
+})
 
 
 
