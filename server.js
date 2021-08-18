@@ -3,7 +3,9 @@
 
 
 const express = require ('express')  ////  as imPORT library 
+
 const cors = require('cors')         ////
+
 require('dotenv').config();
 
 
@@ -15,10 +17,12 @@ const server = express()
 
 const PORT = process.env.PORT
 
-server.use(cors()) 
+server.use(cors());
+
+
 
 server.listen(PORT,()=>{              /////// preaper server listen request//////
-    console.log(' Iam listening ');  ///// show in terminal cuz its node server //// 
+    console.log(' Iam listening ');  ///// showing  in terminal cuz its node server //// 
 
 
 })
