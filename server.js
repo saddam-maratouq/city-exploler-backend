@@ -15,7 +15,7 @@ const server = express()
 
 const PORT = process.env.PORT
 
-
+server.use(cors()) 
 
 server.listen(PORT,()=>{              /////// preaper server listen request//////
     console.log(' Iam listening ');  ///// show in terminal cuz its node server //// 
