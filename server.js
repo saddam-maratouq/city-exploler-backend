@@ -2,22 +2,24 @@
 
 
 
+require('dotenv').config();
+
 const express = require ('express')  ////  as imPORT library 
 
 const cors = require('cors')         ////
 
-require('dotenv').config();
+const axios = require('axios') ////// use axios cuz send req to live Api server like what doing in  front End 
+ 
 
 
-
-const  wheatherData = require ('./Data.json')
+const  wheatherData = require ('./Data.json') 
 
 
 const server = express()
 
 const PORT = process.env.PORT
 
-server.use(cors());
+server.use(cors()); 
 
 
 
@@ -77,6 +79,36 @@ server.get('*',(req,res)=>{
 })
 
 
+//////////////////////////////////////////////////////////////////////////
 
+
+
+//localhost:7000/forecastLive/daily?searchQuery=Amman
+server.get('/forecastLive',handelWheather)
+
+// https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=7d346a3ced3b4f4d885b3ec39a91dc0b	
+  async function handelWheather(req,res) {
+    
+    let searchLiveWheater = req.query.searchQuery 
+    
+
+    try{
+        wheaterLiveUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchLiveWheater}&key=${process.env.WHEATHER_KEY}`	
+
+        let wheaterLiveResult = await axios.get(wheaterLiveUrl) 
+        console.log('kkkkkk',wheaterLiveResult.data);
+        res.send(wheaterLiveResult.data) 
+    }
+
+catch(error) {
+    console.log('eeeeee',error);
+    res.send('eroor from axios')
+}
+}
+
+// class WheatherInfo {
+//     constructor (item)
+//     this
+// }
 
 
