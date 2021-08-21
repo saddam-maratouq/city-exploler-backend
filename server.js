@@ -2,11 +2,16 @@
 
 
 
-require('dotenv').config();
 
 const express = require ('express')  ////  as imPORT library 
 
+let handelWheather  =require('./models/liveWheater')  
+
+
+
 const cors = require('cors')         ////
+
+require('dotenv').config();
 
 const axios = require('axios') ////// use axios cuz send req to live Api server like what doing in  front End 
  
@@ -47,7 +52,7 @@ class weather{
 
 
 
-//localHost:7000/wheather?cityName=Amman   ///city Name its a quary and any thing after ? 
+//localHost:3001/wheather?cityName=Amman   ///city Name its a quary and any thing after ? 
 
 server.get('/wheather',(req,res) =>{
             let searchQuery = req.query.cityName /// to make request diynamk ... to acces after ? 
@@ -73,42 +78,31 @@ server.get('/wheather',(req,res) =>{
 })
 
 
-///localhost:7000/hhhhhhh OrAny mistake 
+/
+
+
+///_________________________________________________________ wheater live ___________________________________________________________///
+
+
+
+// localhost:3001/daily?city=Amman
+server.get('/daily',handelWheather)
+
+// https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=7d346a3ced3b4f4d885b3ec39a91dc0b	
+  
+
+
+
+
+
+// console.log(wheatherData); 
+
+
+ 
+
+
+
+//localhost:3001/hhhhhhh OrAny mistake 
 server.get('*',(req,res)=>{
     res.status(404).send('Eroor page Not found ')
 })
-
-
-//////////////////////////////////////////////////////////////////////////
-
-
-
-//localhost:7000/forecastLive/daily?searchQuery=Amman
-server.get('/forecastLive',handelWheather)
-
-// https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=7d346a3ced3b4f4d885b3ec39a91dc0b	
-  async function handelWheather(req,res) {
-    
-    let searchLiveWheater = req.query.searchQuery 
-    
-
-    try{
-        wheaterLiveUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchLiveWheater}&key=${process.env.WHEATHER_KEY}`	
-
-        let wheaterLiveResult = await axios.get(wheaterLiveUrl) 
-        console.log('kkkkkk',wheaterLiveResult.data);
-        res.send(wheaterLiveResult.data) 
-    }
-
-catch(error) {
-    console.log('eeeeee',error);
-    res.send('eroor from axios')
-}
-}
-
-// class WheatherInfo {
-//     constructor (item)
-//     this
-// }
-
-
