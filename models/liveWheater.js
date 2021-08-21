@@ -10,7 +10,7 @@ async function handelWheather(req,res) {
     
 
     try{
-            let  wheaterLiveUrl = `https://api.weatherbit.io/v2.0/forecast/daily?&key=${process.env.WHEATHER_KEY}&city=${searchLiveWheater}&days=5`	
+            let  wheaterLiveUrl = `${process.env.WHEATHER_KEY_live}/daily?&key=${process.env.WHEATHER_KEY}&city=${searchLiveWheater}&days=5`	
 
                let wheaterLiveResult = await axios.get(wheaterLiveUrl) 
        
