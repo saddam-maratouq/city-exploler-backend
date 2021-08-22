@@ -9,6 +9,8 @@ let handelWheather  =require('./models/liveWheater')
 
 
 
+
+
 const cors = require('cors')         ////
 
 require('dotenv').config();
@@ -35,58 +37,105 @@ server.listen(PORT,()=>{              /////// preaper server listen request/////
 })
 
 
-//localHost:7000/test  /// exactly like this and hit it in browser hit request 
+
+
+
+//////_______________________________________________________Rousts_______________________________________________________________________//////////////
+
+
+
+//localHost:3001/test  /// exactly like this and hit it in browser hit request 
 
 server.get('/test',(req,res)=>{
-        res.send(' its working ')
+    res.send(' its working ')
 })
 
 
-class weather{
-    constructor(item){
-        this.date=item.valid_date;                    ///
-        this.description = item.weather.description; //// in jason  
-    }
-}
+// localHost:3001/wheather?cityName=Amman  
+// server.get('/wheather',(req,res)
+
+
+
+// localhost:3001/daily?city=Amman
+server.get('/daily',handelWheather)
+
+
+
+//localhost:3001/hhhhhhh OrAny mistake 
+
+server.get('*',(req,res)=>{
+    res.status(404).send('Eroor page Not found ')
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 //localHost:3001/wheather?cityName=Amman   ///city Name its a quary and any thing after ? 
 
-server.get('/wheather',(req,res) =>{
-            let searchQuery = req.query.cityName /// to make request diynamk ... to acces after ? 
 
-        let cityData = wheatherData.find( city =>{
-            if ( city.city_name === searchQuery ) { ///////searchQuery
+
+
+// server.get('/wheather',(req,res) =>{
+//             let searchQuery = req.query.cityName /// to make request diynamk ... to acces after ? 
+
+//         let cityData = wheatherData.find( city =>{
+//             if ( city.city_name === searchQuery ) { ///////searchQuery
                
-                return city;
-            }
-        })
+//                 return city;
+//             }
+//         })
 
-        console.log(cityData);
+//         console.log(cityData);
 
 
-        let weatherArr=cityData.data.map((item)=>{
-            console.log(item)
+//         let weatherArr=cityData.data.map((item)=>{
+//             console.log(item)
         
-            return new weather(item);
-        })
+//             return new weather(item);
+//         })
 
         
-   res.send(weatherArr)
-})
+//    res.send(weatherArr)
+// })
 
 
-/
+
+
+// class weather{
+//     constructor(item){
+//         this.date=item.valid_date;                    ///
+//         this.description = item.weather.description; //// in jason  
+//     }
+// }
+
+
 
 
 ///_________________________________________________________ wheater live ___________________________________________________________///
 
 
 
-// localhost:3001/daily?city=Amman
-server.get('/daily',handelWheather)
 
 // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=7d346a3ced3b4f4d885b3ec39a91dc0b	
   
@@ -102,7 +151,3 @@ server.get('/daily',handelWheather)
 
 
 
-//localhost:3001/hhhhhhh OrAny mistake 
-server.get('*',(req,res)=>{
-    res.status(404).send('Eroor page Not found ')
-})
